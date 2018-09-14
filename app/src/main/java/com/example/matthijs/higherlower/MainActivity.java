@@ -127,7 +127,8 @@ public class MainActivity extends AppCompatActivity {
         newDice = number;
 
         diceThrows.add(0,"Throw is " + number);
-
+        listView.smoothScrollToPosition(0);
+        
         switch(number) {
             case 1:
                 imageView.setImageResource(R.drawable.d1);
