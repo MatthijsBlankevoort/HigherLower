@@ -5,10 +5,14 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imageView;
     private FloatingActionButton higherButton;
     private FloatingActionButton lowerButton;
+    private ListView listView;
 
     private TextView scoreText;
     private TextView highScoreText;
@@ -27,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
 
     private int lastDice = 1;
     private int newDice = 1;
+
+    private List<String> diceThrows;
+    private ArrayAdapter<String> diceThrowsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +48,14 @@ public class MainActivity extends AppCompatActivity {
         scoreText = findViewById(R.id.score_text);
         highScoreText = findViewById(R.id.highscore_text);
 
+        listView = findViewById(R.id.list_view);
+
         score = 0;
         highScore = 0;
+
+        diceThrows = new ArrayList<String>();
+
+        listView.setAdapter(diceThrowsAdapter);
 
         lowerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +77,12 @@ public class MainActivity extends AppCompatActivity {
     private void updateUI() {
         scoreText.setText("Score: " + score);
         highScoreText.setText("Highscore: " + highScore);
+        if (diceThrowsAdapter == null) {
+            diceThrowsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, diceThrows);
+            listView.setAdapter(diceThrowsAdapter);
+        } else {
+            diceThrowsAdapter.notifyDataSetChanged();
+        }
     }
 
     private void updateHighScore() {
@@ -105,6 +125,8 @@ public class MainActivity extends AppCompatActivity {
         lastDice = newDice;
         int number = random.nextInt(6) + 1;
         newDice = number;
+
+        diceThrows.add(0,"Throw is " + number);
 
         switch(number) {
             case 1:
