@@ -76,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
             score++;
             Snackbar.make(view, "You win!", Snackbar.LENGTH_SHORT).show();
 
+        } else if (newDice == lastDice) {
+            Snackbar.make(view, "Equals!", Snackbar.LENGTH_SHORT).show();
         } else {
             score = 0;
             Snackbar.make(view, "You lose!", Snackbar.LENGTH_SHORT).show();
@@ -88,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
         if (newDice < lastDice) {
             score++;
             Snackbar.make(view, "You win!", Snackbar.LENGTH_SHORT).show();
+        } else if (newDice == lastDice) {
+            Snackbar.make(view, "Equals!", Snackbar.LENGTH_SHORT).show();
         } else {
             score = 0;
             Snackbar.make(view, "You lose!", Snackbar.LENGTH_SHORT).show();
